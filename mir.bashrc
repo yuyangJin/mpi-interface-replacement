@@ -1,6 +1,8 @@
 #!/bin/bash
-PREFIX=/mnt/ssd/jinyuyang/build
-PROGLIST="rose"
+spack load openmpi@4.1.1
+
+PREFIX=/home/jinyuyang/build
+PROGLIST="boost-1.65.1 rose"
 
 for prog in $PROGLIST
 do

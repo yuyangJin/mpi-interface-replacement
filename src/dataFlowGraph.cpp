@@ -4,6 +4,8 @@
 #include <GraphDotOutput.h>
 #include <DefUseChain.h>
 
+#include "graph.h"
+
 
 class DefUseGraphToDOT
    {
@@ -20,6 +22,10 @@ class DefUseGraphToDOT
                ReachingDefinitionAnalysis reachDefAnal;
                reachDefAnal (fa, AstNodePtrImpl(head));
                graph.build (fa, reachDefAnal, aliasAnal);
+
+
+               // build Data Flow Graph
+               
 
                GraphDotOutput<DefaultDUchain> output (graph);
                output.writeToDOTFile (fname, "Reaching def");
