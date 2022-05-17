@@ -16,18 +16,30 @@ ROSE_LINK_RPATHS = $(shell $(ROSE_HOME)/bin/rose-config ROSE_LINK_RPATHS)
 
 MOSTLYCLEANFILES =
 
+# 
+MIR_INC = src/
+
 ##############################################################################
 # Assuming your source code is "demo.C" to build an executable named "demo".
 
-all: dataFlowGraph
 
-dataFlowGraph.o: src/dataFlowGraph.c
-	$(ROSE_CXX) $(ROSE_CPPFLAGS) $(ROSE_CXXFLAGS) -o bin/$@ -c $^
 
-dataFlowGraph: bin/dataFlowGraph.o
-	$(ROSE_CXX) $(ROSE_CXXFLAGS) -o bin/$@ $^ $(ROSE_LDFLAGS) $(ROSE_LINK_RPATHS) -Wl,-rpath=$(ROSE_HOME)/lib
+all: dataFlowGraph controlFlowGraph
 
-MOSTLYCLEANFILES += dataFlowGraph dataFlowGraph.o
+dataFlowGraph.o: src/dataFlowGraph.cpp
+	$(ROSE_CXX) $(ROSE_CPPFLAGS) $(ROSE_CXXFLAGS) -I$(MIR_INC) -o bin/$@ -c $^
+
+dataFlowGraph: dataFlowGraph.o
+	$(ROSE_CXX) $(ROSE_CXXFLAGS) -o bin/$@ bin/$^ $(ROSE_LDFLAGS) $(ROSE_LINK_RPATHS) -Wl,-rpath=$(ROSE_HOME)/lib
+
+controlFlowGraph.o: src/controlFlowGraph.cpp
+	$(ROSE_CXX) $(ROSE_CPPFLAGS) $(ROSE_CXXFLAGS) -I$(MIR_INC) -o bin/$@ -c $^
+
+controlFlowGraph: controlFlowGraph.o
+	$(ROSE_CXX) $(ROSE_CXXFLAGS) -o bin/$@ bin/$^ $(ROSE_LDFLAGS) $(ROSE_LINK_RPATHS) -Wl,-rpath=$(ROSE_HOME)/lib
+
+
+MOSTLYCLEANFILES += dataFlowGraph dataFlowGraph.o controlFlowGraph controlFlowGraph.o
 
 ##############################################################################
 # Standard boilerplate
