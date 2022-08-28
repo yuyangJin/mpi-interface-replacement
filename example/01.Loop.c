@@ -8,14 +8,19 @@ int main() {
     double d = pow(c , 4);
     double e;
     for (int i = 0; i < 100; i ++) {
-        e += d / i;
-        d = d++;
+        for (int j = 0; j < i; j ++) {
+            e += d / i+j;
+            d = d++;
+        }
     }
     printf("%d", e);
     double f;
     int N = e;
     for (int i = 0; i < N; i ++) {
-        f += e / i;
+        if (a > b || b < c && c == e)
+            f += e / i;
+        else
+            f += i / e;
     }
     printf("%d", f);
 }
